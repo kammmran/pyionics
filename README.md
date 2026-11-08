@@ -138,6 +138,10 @@ Use the short name as `prop`. Names follow [pyILT2](http://wgserve.de/pyilt2/pro
 Bug reports and pull requests are welcome in [Issues](https://github.com/kammmran/pyionics/issues).
 If pyionics helps your research, a ⭐ on the repo helps others find it.
 
+## Citation
+
+If you use pyionics in your research, please cite it. Click **"Cite this repository"** in the sidebar on GitHub for APA and BibTeX, or see [`CITATION.cff`](CITATION.cff).
+
 ## License
 
 [MIT](LICENSE). Data comes from NIST ILThermo; please cite ILThermo when you publish results based on it.
