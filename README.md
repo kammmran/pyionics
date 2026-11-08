@@ -1,81 +1,76 @@
-# pyIonics Python Library Documentation
+# pyionics
 
-## Installation
+[![PyPI](https://img.shields.io/pypi/v/pyionics?color=3775A9)](https://pypi.org/project/pyionics/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+Download ionic liquid property data from [NIST ILThermo](https://ilthermo.boulder.nist.gov/) and turn it into clean, analysis-ready CSV files with SMILES, in a few lines of Python.
+
+- Search ILThermo by property, compound, number of components, year, author or keyword
+- Download every matching dataset at once
+- Convert the raw JSON to CSV or TSV
+- Add SMILES for each component
+- Merge many datasets into one table
+
+## Install
 
 ```bash
 pip install pyionics
 ```
-## About package 
-This package is a specialized tool for downloading datasets from [ilthermo.org](https://ilthermo.boulder.nist.gov/), converting them to CSV or TSV files, merging datasets, and adding SMILES information to your data.
 
-## Why you should use this package?
-1. property ids update for each updating of [ilthermo.org](https://ilthermo.boulder.nist.gov/) site 
-2. Converting csv and tsv
-3. adding smiles
-4. clean dirty json data for converting to other formats
-5. merge datasets
-## Usage
+## Quick start
 
-First, import the library in your Python code:
+Get all density measurements of pure ionic liquids as one CSV file:
 
 ```python
 import pyionics as pyi
+
+pyi.getData(prop="dens", ncmp="1")         # -> data/dens_pure_data/*.json
+pyi.convert2csv("dens_pure_data")          # -> data/csv_dens_pure_data/*.csv
+pyi.addSmiles("csv_dens_pure_data")        # -> data/smiles_csv_dens_pure_data/*.csv
+pyi.mergeFiles("smiles_csv_dens_pure_data")  # -> data/merged_smiles_csv_dens_pure_data.csv
 ```
 
-### Retrieve Idsets Data
+All files are written to a `data/` folder in your working directory. Folder names are passed relative to `data/`.
 
-Use the `getIdsets` function to retrieve data:
+## API
 
-```python
-pyi.getIdsets(
-    prop="",          # property short name (e.g., 'dens')
-    data_path=None,   # optional: path to your data
-    cmp="",           # component name (e.g., 'benzene')
-    ncmp="0",         # component number: 0=all, 1=pure, 2=binary, 3=triple
-    year="",          # publish year
-    auth="",          # author name
-    keyw=""           # keyword
-)
-```
+### `getIdsets(prop, cmp, ncmp, year, auth, keyw)`
 
-#### getIdsets Parameters
+Searches ILThermo and saves the list of matching dataset IDs as JSON in `data/`.
 
-| Parameter | Description         | Example      |
-|-----------|---------------------|-------------|
-| prop      | Property short name | dens        |
-| cmp       | Component name      | benzene     |
-| ncmp      | Component number    | 1, 2, 3     |
-| year      | Publish year        | 2020        |
-| auth      | Author name         | Smith       |
-| keyw      | Keyword             | ionic       |
+| Parameter | Meaning | Example |
+|---|---|---|
+| `prop` | Property short name (see [Properties](#properties)) | `"dens"` |
+| `cmp` | Compound name | `"benzene"` |
+| `ncmp` | Number of components: `"0"` all, `"1"` pure, `"2"` binary, `"3"` ternary | `"1"` |
+| `year` | Publication year | `"2020"` |
+| `auth` | Author name | `"Smith"` |
+| `keyw` | Keyword | `"ionic"` |
 
-- **prop**: Use the short version of the property name (see below).
-- **ncmp**: `0` = all, `1` = pure, `2` = binary, `3` = triple.
+At least one search parameter is required.
 
-### Retrieve Datasets
+### `getData(...)`
 
-Use the `getData` function to retrieve specific datasets.  
-When you call `getData`, it will collect all datasets matching your criteria (using `getIdsets` internally) and save them as JSON files in a newly created `data` folder in your working directory.
+Takes the same parameters as `getIdsets`. Downloads every matching dataset as JSON into `data/{prop}_{ncmp}_data[_filters]/`.
 
-```python
-pyi.getData(
-    prop=None,        # property short name (e.g., 'dens')
-    data_path=None,   # optional: path to your data
-    cmp="",           # component name (e.g., 'benzene')
-    ncmp="0",         # component number: 0=all, 1=pure, 2=binary, 3=triple
-    year="",          # publish year
-    auth="",          # author name
-    keyw=""           # keyword
-)
-```
+### `convert2csv(folder_name="", file_name="")` / `convert2tsv(...)`
 
-> **Note:** `getData` has the same parameters as `getIdsets`. See the table above for details.
+Converts downloaded JSON files to CSV (`data/csv_<folder>/`) or TSV (`data/tsv_<folder>/`). Pass a folder or a single file.
 
-## Property List
+### `addSmiles(folder_name="", file_name="")`
 
-Only short versions of property names are available for the `getIdsets` and `getData` functions.
+Adds SMILES for each component to CSV files and writes them to `data/smiles_<folder>/`. Works on CSV output only.
 
-When you use `getIdsets`, the results are saved as a JSON file in a newly created `data` folder in your working directory. The output file is named `{prop}_idsets_{other parameters}.json`, where `{prop}` is the short property name and `{other parameters}` reflect your query criteria. The short property names correspond to those used in [pyILT2](http://wgserve.de/pyilt2/props.html).
+### `mergeFiles(folder_name)`
+
+Concatenates all CSV files in a folder into `data/merged_<folder>.csv`.
+
+## Properties
+
+Use the short name as `prop`. Names follow [pyILT2](http://wgserve.de/pyilt2/props.html).
+
+<details>
+<summary>Show all 55 properties</summary>
 
 | Property Name                                               | ID    | Short  |
 |-------------------------------------------------------------|-------|--------|
@@ -135,38 +130,13 @@ When you use `getIdsets`, the results are saved as a JSON file in a newly create
 | isothermal-compressibility                                  | Bvon  | kT     |
 | partial-molar-volume                                        | LNxL  | Vpm    |
 
+</details>
 
-## Convert Functions
+## Contributing
 
-After retrieving datasets with an idsets request, the data is saved as a JSON file. The pyionics library provides functions to convert these JSON files to CSV or TSV formats using `convert2csv` and `convert2tsv`. Note that merging datasets and adding SMILES information require the data to be in CSV format.
+Bug reports and pull requests are welcome in [Issues](https://github.com/kammmran/pyionics/issues).
+If pyionics helps your research, a ⭐ on the repo helps others find it.
 
-Just write the folder name located inside the `data` folder; do not include `data` as the parent directory.To convert files, use the following functions:
+## License
 
-Convert to CSV:
-```python
-    pyi.convert2csv(folder_name='', file_name='')
-    # Converts a JSON file to CSV format
-    # Only one of the parameters (`folder_name` or `file_name`) is required.
-```
-
-Convert to TSV:
-```python
-    pyi.convert2tsv(folder_name='', file_name='')
-    # Converts a JSON file to TSV format
-    # Only one of the parameters (`folder_name` or `file_name`) is required.
-```
-
-
-## Add SMILES
-Note : `getSmiles` function runs just csv files. Also for folder_name parameter it shoud start with csv_ (other case function do not works right). 
-
-```python
-    pyi.addSmiles(folder_name='', file_name='')
-```
-
-## Merge datasets
-`MergeFIles` is function to merge datasets in folder
-
-```python
-    pyi.mergeFiles(folder_name)
-```
+[MIT](LICENSE). Data comes from NIST ILThermo; please cite ILThermo when you publish results based on it.
