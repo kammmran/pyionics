@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use pyionics in your research, please cite it as below."
+type: software
+title: "pyionics: Python access to NIST ILThermo ionic liquid data"
+abstract: >-
+  pyionics downloads ionic liquid property data from the NIST ILThermo
+  database and converts it into clean CSV/TSV tables with SMILES for
+  data analysis and QSPR modelling.
+authors:
+  - family-names: Heydarov
+    given-names: Kamran
+    affiliation: University of Strasbourg
+version: 0.4.3
+license: MIT
+repository-code: "https://github.com/kammmran/pyionics"
+url: "https://pypi.org/project/pyionics/"
+keywords:
+  - ionic liquids
+  - ILThermo
+  - NIST
+  - cheminformatics
+  - QSPR
+  - dataset

@@ -1,0 +1,10 @@
+{
+  "title": "pyionics: Python access to NIST ILThermo ionic liquid data",
+  "description": "pyionics downloads ionic liquid property data from the NIST ILThermo database and converts it into clean CSV/TSV tables with SMILES for data analysis and QSPR modelling.",
+  "upload_type": "software",
+  "creators": [
+    {"name": "Heydarov, Kamran", "affiliation": "University of Strasbourg"}
+  ],
+  "license": "MIT",
+  "keywords": ["ionic liquids", "ILThermo", "NIST", "cheminformatics", "QSPR", "dataset"]
+}
