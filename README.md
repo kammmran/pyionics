@@ -1,6 +1,7 @@
 # pyionics
 
 [![PyPI](https://img.shields.io/pypi/v/pyionics?color=3775A9)](https://pypi.org/project/pyionics/)
+[![tests](https://github.com/kammmran/pyionics/actions/workflows/tests.yml/badge.svg)](https://github.com/kammmran/pyionics/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 Download ionic liquid property data from [NIST ILThermo](https://ilthermo.boulder.nist.gov/) and turn it into clean, analysis-ready CSV files with SMILES, in a few lines of Python.
