@@ -5,7 +5,7 @@ with open('README.md', 'r', encoding='utf-8') as f:
 
 setup(
     name='pyionics',
-    version='0.4.3',
+    version='0.4.4',
     author='Kamran Heydarov',
     description='Download NIST ILThermo ionic liquid data and convert it to clean CSV/TSV with SMILES',
     long_description=long_description,

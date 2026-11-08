@@ -10,7 +10,8 @@ authors:
   - family-names: Heydarov
     given-names: Kamran
     affiliation: University of Strasbourg
-version: 0.4.3
+version: 0.4.4
+date-released: "2026-11-08"
 license: MIT
 repository-code: "https://github.com/kammmran/pyionics"
 url: "https://pypi.org/project/pyionics/"
